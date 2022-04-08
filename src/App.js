@@ -8,29 +8,32 @@ function App() {
   // linea1 variable , setlinea1 funcion
   const [linea1, setlinea1] = useState('linea uno por defecto');
   const [linea2, setlinea2] = useState('linea dos por defecto');
-  const [imagenSeleccionada, setimagenSeleccionada] = useState('https://picsum.photos/id/237/500/500');
-
+  const [imagenSeleccionada, setimagenSeleccionada] = useState('./images/237-500x500.jpg');
 
   const onChangelinea1 = (valor) => {
     setlinea1(valor.target.value)
   }
 
-
   const onChangelinea2 = (valor) => {
     setlinea2(valor.target.value)
   }
 
-
   const onChangeImagen = (valor) => {
-    setimagenSeleccionada('https://picsum.photos/id/' + valor.target.value + '/500/500');
+    setimagenSeleccionada('./images/' + valor.target.value + '-500x500.jpg');
   }
-
 
   const onClickExportar = (valor) => {
     alert('EXPORTAR')
 
     html2canvas(document.querySelector("#capture")).then(canvas => {
-      document.body.appendChild(canvas)
+      let img = canvas.toDataURL('image/png');
+
+      var iframe = "<iframe width='100%' height='100%' src='" + img + "'></iframe>"
+      var x = window.open();
+      x.document.open();
+      x.document.write(iframe);
+      x.document.close();
+
     });
 
   }
@@ -39,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <select onChange={onChangeImagen}>
-        <option value="1003">Ciervo</option>
+        <option value="237">Perrito negro</option>
         <option value="102">Frambuesa</option>
         <option value="1025">Perro</option>
         <option value="1020">Osos</option>
